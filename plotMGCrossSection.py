@@ -24,6 +24,8 @@ fig, axis = plt.subplots(figsize = (20, 8))
 plt.errorbar(masses, crossSections_schan_Z, yerr = crossSectionsUnc_schan_Z, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
 plt.plot(masses, crossSections_schan_W, c = "r", label="s channel, $W^{\pm}$", linestyle = "", marker = 'o')
 
+plt.yscale('log')
+
 #axis.set_xlabel("Cross section [pb]", fontsize = 20)
 axis.set_ylabel("Madgraph cross section [pb]", fontsize = 20)
 axis.set_xlabel("$M(H^{++}_{L})$ [GeV]", fontsize = 20)
