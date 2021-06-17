@@ -15,7 +15,7 @@ if (len(crossSections_schan) != len(masses)):
 # plot!
 fig, axis = plt.subplots(figsize = (20, 8))
 #plt.plot(masses, crossSections_schan, c = "b", label="s channel", linestyle = "", marker = 'o')
-plt.errorbar(masses, crossSections_schan, yerr = crossSectionsUnc_schan, c = "b", label="s channel", linestyle = "", marker = 'o')
+plt.errorbar(masses, crossSections_schan, yerr = crossSectionsUnc_schan, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
 
 #axis.set_xlabel("Cross section [pb]", fontsize = 20)
 axis.set_ylabel("Madgraph cross section [pb]", fontsize = 20)
