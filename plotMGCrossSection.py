@@ -8,8 +8,8 @@ masses = [100, 200, 300, 400, 500, 600, 700, 800]
 #crossSections_schan_Z    = [0.6524, 0.2167, 0.1149, 0.08092, 0.06834, 0.06076, 0.05154, 0.03723]
 #crossSectionsUnc_schan_Z =  [0.0013, 0.00059, 0.00025, 0.00018,0.00015, 0.00014, 0.00015, 6.4E-05]
 
-crossSections_schan_Z    = [0.6533, 0.2163, 0.1147, 0.08086, 0.06821, 0.06073, 0.05151, 0.03716]
-crossSections_schan_W = [0.001246, 0.001959, 0.002191, 0.002109, 0.001876, 0.001602, 0.001329, 0.001079]
+crossSections_schan_Z = [0.6533, 0.2163, 0.1147, 0.08086, 0.06821, 0.06073, 0.05151, 0.03716]
+crossSections_schan_W = [0.01123, 0.01775, 0.01973, 0.01906, 0.01695, 0.01448, 0.01199, 0.009744]
 
 if (len(crossSections_schan_Z) != len(masses)):
     print("Invalid masses/crossSections dimensions. Please check!")
