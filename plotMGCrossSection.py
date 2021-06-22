@@ -1,47 +1,78 @@
 #!/bin/python3
 import matplotlib.pyplot as plt
 
-# FIXME write parser of html files from MG?
-masses = [100, 200, 300, 400, 500, 600, 700, 800]
+#====================================================================================================
 
-# in pb
-#crossSections_schan_Z    = [0.6524, 0.2167, 0.1149, 0.08092, 0.06834, 0.06076, 0.05154, 0.03723]
-#crossSectionsUnc_schan_Z =  [0.0013, 0.00059, 0.00025, 0.00018,0.00015, 0.00014, 0.00015, 6.4E-05]
+def getDataFromFile(fileName):
 
-crossSections_schan_Z = [0.6533, 0.2163, 0.1147, 0.08086, 0.06821, 0.06073, 0.05151, 0.03716]
-crossSections_schan_W = [0.01123, 0.01775, 0.01973, 0.01906, 0.01695, 0.01448, 0.01199, 0.009744]
+    crossSections    = []
+    crossSectionsUnc = []
 
-if (len(crossSections_schan_Z) != len(masses)):
-    print("Invalid masses/crossSections dimensions. Please check!")
-    exit(1)
+    with open(fileName) as f:
+        for line in f:
+            if line.startswith("#"):
+                continue
 
-if (len(crossSections_schan_W) != len(masses)):
-    print("Invalid masses/crossSections dimensions. Please check!")
-    exit(1)
+            strippedLine = line.strip("\n")
+            parts   = strippedLine.split(" ")
+            xsec    = float(parts[2])
+            xsecUnc = float(parts[3])
 
-# plot!
-fig, axis = plt.subplots(figsize = (20, 8))
-#plt.plot(masses, crossSections_schan, c = "b", label="s channel", linestyle = "", marker = 'o')
-#plt.errorbar(masses, crossSections_schan_Z, yerr = crossSectionsUnc_schan_Z, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
-plt.plot(masses, crossSections_schan_Z, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
-plt.plot(masses, crossSections_schan_W, c = "r", label="s channel, $W^{\pm}$", linestyle = "", marker = 'o')
+            crossSections    += [xsec]
+            crossSectionsUnc += [xsecUnc]
 
-plt.yscale('log')
+    return (crossSections, crossSectionsUnc)
 
-#axis.set_xlabel("Cross section [pb]", fontsize = 20)
-axis.set_ylabel("Madgraph cross section [pb]", fontsize = 20)
-axis.set_xlabel("$M(H^{++}_{L})$ [GeV]", fontsize = 20)
+#====================================================================================================
 
-plt.legend(loc = 'upper right', fontsize = 15)
+def main():
+    #FIXME hardcoded, these parameters are not written in txt file from MG
+    masses = [100, 200, 300, 400, 500, 600, 700, 800]
 
-tickSize = 14
-for tick in axis.xaxis.get_major_ticks():
-    tick.label.set_fontsize(tickSize)
+    f_Z = "cross_section_top.txt"
+    f_W = "cross_section_top.txt"
 
-for tick in axis.yaxis.get_major_ticks():
-    tick.label.set_fontsize(tickSize)
+    crossSections_schan_Z, crossSectionsUnc_schan_Z = getDataFromFile(f_Z)
+    crossSections_schan_W, crossSectionsUnc_schan_W = getDataFromFile(f_W)
 
-plt.show()
-plotSave = "cross_sections_vs_mass.pdf"
-fig.savefig(plotSave)
-print("Created {plot}".format(plot=plotSave))
+    # sanity check that all lists have the same length
+
+    lists = [masses]
+    lists += [crossSections_schan_Z, crossSectionsUnc_schan_Z]
+    lists += [crossSections_schan_W, crossSectionsUnc_schan_W]
+
+    it = iter(lists)
+    length = len(next(it))
+    if not all(len(l) == length for l in it):
+        print("Not all lists have the same dimensions, please check!")
+        exit(1)
+
+    # plot
+    fig, axis = plt.subplots(figsize = (20, 8))
+    plt.errorbar(masses, crossSections_schan_Z, yerr = crossSectionsUnc_schan_Z, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
+    plt.errorbar(masses, crossSections_schan_W, yerr = crossSectionsUnc_schan_W, c = "r", label="s channel, $W^{\pm}$", linestyle = "", marker = 'o')
+
+    plt.yscale('log')
+
+    #axis.set_xlabel("Cross section [pb]", fontsize = 20)
+    axis.set_ylabel("Madgraph cross section [pb]", fontsize = 20)
+    axis.set_xlabel("$M(H^{++}_{L})$ [GeV]", fontsize = 20)
+
+    plt.legend(loc = 'upper right', fontsize = 15)
+
+    tickSize = 14
+    for tick in axis.xaxis.get_major_ticks():
+        tick.label.set_fontsize(tickSize)
+
+    for tick in axis.yaxis.get_major_ticks():
+        tick.label.set_fontsize(tickSize)
+
+    plt.show()
+    plotSave = "cross_sections_vs_mass.pdf"
+    fig.savefig(plotSave)
+    print("Created {plot}".format(plot=plotSave))
+
+#====================================================================================================
+
+if __name__ == "__main__":
+    main()
