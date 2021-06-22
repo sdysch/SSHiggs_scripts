@@ -29,17 +29,23 @@ def main():
     #FIXME hardcoded, these parameters are not written in txt file from MG
     masses = [100, 200, 300, 400, 500, 600, 700, 800]
 
-    f_Z = "cross_section_top.txt"
-    f_W = "cross_section_top.txt"
+    f_Z      = "cross_section_top.txt"
+    f_W      = "cross_section_top.txt"
+    f_VBF_ll = "cross_section_top.txt"
+    f_VBF_WW = "cross_section_top.txt"
 
     crossSections_schan_Z, crossSectionsUnc_schan_Z = getDataFromFile(f_Z)
     crossSections_schan_W, crossSectionsUnc_schan_W = getDataFromFile(f_W)
+    crossSections_schan_VBF_ll, crossSectionsUnc_schan_VBF_ll = getDataFromFile(f_VBF_ll)
+    crossSections_schan_VBF_WW, crossSectionsUnc_schan_VBF_WW = getDataFromFile(f_VBF_WW)
 
     # sanity check that all lists have the same length
 
     lists = [masses]
     lists += [crossSections_schan_Z, crossSectionsUnc_schan_Z]
     lists += [crossSections_schan_W, crossSectionsUnc_schan_W]
+    lists += [crossSections_schan_VBF_ll, crossSectionsUnc_schan_VBF_ll]
+    lists += [crossSections_schan_VBF_WW, crossSectionsUnc_schan_VBF_WW]
 
     it = iter(lists)
     length = len(next(it))
@@ -49,8 +55,10 @@ def main():
 
     # plot
     fig, axis = plt.subplots(figsize = (20, 8))
-    plt.errorbar(masses, crossSections_schan_Z, yerr = crossSectionsUnc_schan_Z, c = "b", label="s channel, $Z/\gamma^*$", linestyle = "", marker = 'o')
-    plt.errorbar(masses, crossSections_schan_W, yerr = crossSectionsUnc_schan_W, c = "r", label="s channel, $W^{\pm}$", linestyle = "", marker = 'o')
+    plt.errorbar(masses, crossSections_schan_Z, yerr = crossSectionsUnc_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H^{++} H^{--}$", linestyle = "", marker = 'o')
+    plt.errorbar(masses, crossSections_schan_W, yerr = crossSectionsUnc_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H^{\pm\pm}H^{\mp}$", linestyle = "", marker = 'o')
+    plt.errorbar(masses, crossSections_schan_VBF_ll, yerr = crossSectionsUnc_schan_VBF_ll, c = "g", label="$pp \\to\ H^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
+    plt.errorbar(masses, crossSections_schan_VBF_WW, yerr = crossSectionsUnc_schan_VBF_WW, c = "m", label="$pp \\to\ H^{\pm\pm}(\\to\ W^\pm W^\pm \\to\ \ell^\pm\ell^\pm\\nu_\ell\\nu_\ell$) jj", linestyle = "", marker = 'o')
 
     plt.yscale('log')
 
