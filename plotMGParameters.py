@@ -17,7 +17,8 @@ def getDataFromFile(fileName):
             strippedLine = line.strip("\n")
             parts   = strippedLine.split()
             mass    = float(parts[1])
-            xsec    = float(parts[2])
+            # convert to fb
+            xsec    = float(parts[2]) * 1000.
             width   = float(parts[3])
 
             masses           += [mass]
@@ -42,16 +43,16 @@ def main():
 
     # cross section plot
     fig, axis = plt.subplots(figsize = (10, 10))
-    plt.plot(m_schan_Z, xs_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H^{++} H^{--}$", linestyle = "", marker = 'o')
-    plt.plot(m_schan_W, xs_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H^{\pm\pm}H^{\mp}$", linestyle = "", marker = 'o')
+    plt.plot(m_schan_Z, xs_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H_L^{++} H_L^{--}$", linestyle = "", marker = 'o')
+    plt.plot(m_schan_W, xs_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H_L^{\pm\pm}H_L^{\mp}$", linestyle = "", marker = 'o')
     #plt.plot(m_VBF_ll,  xs_VBF_ll,  c = "g", label="$pp \\to\ H^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
     #plt.plot(m_VBF_WW,  xs_VBF_WW,  c = "m", label="$pp \\to\ H^{\pm\pm}(\\to\ W^\pm W^\pm \\to\ \ell^\pm\ell^\pm\\nu_\ell\\nu_\ell$) jj", linestyle = "", marker = 'o')
 
     plt.yscale('log')
 
     #axis.set_xlabel("Cross section [pb]", fontsize = 20)
-    axis.set_ylabel("Madgraph cross section [pb]", fontsize = 20)
-    axis.set_xlabel("$M(H^{\pm\pm}_{L})$ [GeV]", fontsize = 20)
+    axis.set_ylabel("Madgraph cross section [fb]", fontsize = 20)
+    axis.set_xlabel("$M(H^{\pm\pm})$ [GeV]", fontsize = 20)
 
     plt.legend(loc = 'upper right', fontsize = 15)
 
@@ -73,8 +74,8 @@ def main():
 
     plt.yscale('log')
 
-    axis_width.set_ylabel("$H^{\pm\pm}_L$ width [GeV]", fontsize = 20)
-    axis_width.set_xlabel("$M(H^{\pm\pm}_{L})$ [GeV]", fontsize = 20)
+    axis_width.set_ylabel("$H^{\pm\pm}$ width [GeV]", fontsize = 20)
+    axis_width.set_xlabel("$M(H^{\pm\pm})$ [GeV]", fontsize = 20)
 
     plt.legend(loc = 'upper left', fontsize = 15)
 
