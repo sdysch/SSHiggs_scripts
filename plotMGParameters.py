@@ -33,7 +33,7 @@ def main():
 
     f_Z      = "data/results_schan_ZGamma.txt"
     f_W      = "data/results_schan_W.txt"
-    f_VBF_ll = "data/results_debug.txt"
+    f_VBF_ll = "data/results_VBF_ll.txt"
     f_VBF_WW = "data/results_debug.txt"
 
     m_schan_Z, xs_schan_Z, w_schan_Z = getDataFromFile(f_Z)
@@ -45,7 +45,7 @@ def main():
     fig, axis = plt.subplots(figsize = (10, 10))
     plt.plot(m_schan_Z, xs_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H_L^{++} H_L^{--}$", linestyle = "", marker = 'o')
     plt.plot(m_schan_W, xs_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H_L^{\pm\pm}H_L^{\mp}$", linestyle = "", marker = 'o')
-    #plt.plot(m_VBF_ll,  xs_VBF_ll,  c = "g", label="$pp \\to\ H^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
+    plt.plot(m_VBF_ll,  xs_VBF_ll,  c = "g", label="$pp \\to\ H_R^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
     #plt.plot(m_VBF_WW,  xs_VBF_WW,  c = "m", label="$pp \\to\ H^{\pm\pm}(\\to\ W^\pm W^\pm \\to\ \ell^\pm\ell^\pm\\nu_\ell\\nu_\ell$) jj", linestyle = "", marker = 'o')
 
     plt.yscale('log')
@@ -67,9 +67,9 @@ def main():
 
     # width plot
     fig_width, axis_width = plt.subplots(figsize = (10, 10))
-    plt.plot(m_schan_Z, w_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H^{++} H^{--}$", linestyle = "", marker = 'o')
-    plt.plot(m_schan_W, w_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H^{\pm\pm}H^{\mp}$", linestyle = "", marker = 'o')
-    #plt.plot(m_VBF_ll,  w_VBF_ll,  c = "g", label="$pp \\to\ H^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
+    plt.plot(m_schan_Z, w_schan_Z, c = "b", label="$pp \\to\ Z/\gamma^* \\to\ H_L^{++} H_L^{--}$", linestyle = "", marker = 'o')
+    plt.plot(m_schan_W, w_schan_W, c = "r", label="$pp \\to\ W^{\pm} \\to\ H_L^{\pm\pm}H_L^{\mp}$", linestyle = "", marker = 'o')
+    plt.plot(m_VBF_ll,  w_VBF_ll,  c = "g", label="$pp \\to\ H_R^{\pm\pm}(\\to\ \ell^\pm\ell^\pm$) jj", linestyle = "", marker = 'o')
     #plt.plot(m_VBF_WW,  w_VBF_WW,  c = "m", label="$pp \\to\ H^{\pm\pm}(\\to\ W^\pm W^\pm \\to\ \ell^\pm\ell^\pm\\nu_\ell\\nu_\ell$) jj", linestyle = "", marker = 'o')
 
     plt.yscale('log')
